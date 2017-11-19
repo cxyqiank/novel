@@ -9,17 +9,17 @@
 @section('content')
         <div class="tpl-content-wrapper">
             <div class="tpl-content-page-title">
-                揽阅后台--公告列表
+                揽阅后台--分类列表
             </div>
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
-                <li><a href="#">公告管理</a></li>
-                <li class="am-active">公告列表</li>
+                <li><a href="#">分类管理</a></li>
+                <li class="am-active">分类列表</li>
             </ol>
             <div class="tpl-portlet-components">
                 <div class="portlet-title">
                     <div class="caption font-green bold">
-                        <span class="am-icon-server"></span> 公告
+                        <span class="am-icon-server"></span> 分类
 
                     </div>
                     <div class="tpl-portlet-input tpl-fz-ml">
@@ -37,10 +37,8 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success">
+                                        <a href="/admin/cart/add" style="color: #fff"><span class="am-icon-plus"></span> 新增</a></button>
                                 </div>
                             </div>
                         </div>
@@ -89,17 +87,6 @@
 
                                     <div class="am-fr">
                                         {{ $data->links() }}
-                                        {{--设置样式--}}
-                                        <script>
-                                            var page = document.getElementsByClassName('pagination')[0];
-                                            page.className += ' am-pagination tpl-pagination';
-                                            $active = page.getElementsByClassName('active')[0];
-                                            $active.style.color = '#fff';
-                                            $span = $active.getElementsByTagName('span')[0];
-                                            $span.style.background = '#20AAF0';
-
-                                        </script>
-
                                     </div>
                                 </div>
                                 <hr>

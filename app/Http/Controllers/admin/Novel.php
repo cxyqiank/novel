@@ -14,6 +14,7 @@ class Novel extends BaseController
     public static function index()
     {
         $data = NovelModel::index();
+
         return view('admin/index',['data'=>$data]);
     }
     //小说列表
@@ -49,7 +50,7 @@ class Novel extends BaseController
             $input = $request->all();
             $res = NovelModel::edit($input);
             if($res){
-                return Redirect('admin/novel/info');
+                return Redirect('admin/novel/lists');
             }else{
                 return back()->with('msg','修改失败，请稍后重试');
             }
@@ -65,7 +66,7 @@ class Novel extends BaseController
         $input = $request->all();
         $res = NovelModel::del($input);
         if($res){
-            return Redirect('admin/novel/info');
+            return Redirect('admin/novel/lists');
         }else{
             return back()->with('msg','删除失败');
         }
@@ -92,5 +93,14 @@ class Novel extends BaseController
         $return['content'] = mb_substr($str,$chars,760);
         $return['page'] = $page;
         return $return;
+    }
+    //批量删除
+    public static function multiDel(Request $request)
+    {
+        $v = [];
+        foreach ($request->get('ids') as $v['id']){
+            NovelModel::del($v);
+        }
+        return redirect('/admin/novel/lists');
     }
 }

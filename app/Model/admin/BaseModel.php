@@ -79,4 +79,6 @@ class BaseModel extends Model
         $page = new LengthAwarePaginator($collection,$total,$per,$currentPage,['path'=>$path]);
         return $page;
     }
+
+
 }

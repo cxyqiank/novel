@@ -7,18 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class Novel extends BaseModel
 {
+
     protected $fillable = ['name', 'pic', 'author', 'desc', 'status', 'sections'];
     public function hot()
     {
-        return $this->hasOne('App\Model\admin\Hot','novel_id','id');
+        return $this->hasOne(hot::class,'novel_id','id');
     }
 
     //首页
     public static function index()
     {
-        $sql = 'SELECT n.id,n.name,n.author,n.sections,n.updated_at,h.visitors,h.collectors 
-FROM novels n LEFT JOIN hots h ON n.id = h.novel_id ORDER BY h.collectors desc LIMIT 10';
-        $data['novels'] = DB::select($sql);
+        $data['novels'] = Hot::with('Novel')->orderBy('collectors','desc')->take(10)->get();
         $sql = 'SELECT count(n.name) nums,n.author,count(h.visitors) vs,count(h.collectors) cs 
 FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY cs desc LIMIT 10';
         $data['authors'] = DB::select($sql);
@@ -43,7 +42,7 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
 
         $hot['novel_id'] = $res1->getKey();
         $hot['visitors']= $hot['collectors'] = 0;
-        $res2 = Hot::create($hot);
+        $res2 =Hot::create($hot);
         //更新关系表
         $res3 = Novel_cart::add($res1->getKey(),$input['cart_name']);
         if ($res1 &&$res2 &&$res3) {
@@ -90,7 +89,6 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
             return false;
         }
     }
-
     //查询列表
     public function lists()
     {
@@ -98,7 +96,6 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         $data = self::paginate(3);
         return $data;
     }
-
     //查询详细信息
     public static function info($id)
     {
@@ -113,7 +110,6 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         $data['cname'] = Cart::info($id);
         return $data;
     }
-
     //上传文件
     public static function upFile($input, $file)
     {
@@ -123,7 +119,6 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         //添加全部数据
         return $input;
     }
-
     public static function show($ad)
     {
         $file = trim($ad);

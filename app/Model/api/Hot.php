@@ -4,6 +4,10 @@ namespace App\Model\api;
 
 class Hot extends BaseModel
 {
+    public function novel()
+    {
+        return $this->belongsTo('App\Model\api\Novel');
+    }
     //首页接口
     public function indexAPI()
     {

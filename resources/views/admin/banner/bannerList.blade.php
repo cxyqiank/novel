@@ -37,10 +37,8 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a href="/admin/banner/add" style="color: #fff"><span class="am-icon-plus"></span> 新增</a></button>
+                                    <button type="button" onclick="$('#del').submit()" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                 </div>
                             </div>
                         </div>
@@ -56,11 +54,12 @@
                     </div>
                     <div class="am-g">
                         <div class="am-u-sm-12">
-                            <form class="am-form">
+                            <form class="am-form" id="del" action="/admin/banner/multiDel" method="post">
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
+                                    {{csrf_field()}}
                                         <tr>
-                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                            <th class="table-check"><input type="checkbox" id="all-del" class="tpl-table-fz-check"></th>
                                             <th class="table-id">ID</th>
                                             <th class="table-title">主题</th>
                                             <th class="table-type">图片</th>
@@ -70,7 +69,7 @@
                                     <tbody>
                                     @foreach($data as $v)
                                         <tr>
-                                            <td><input type="checkbox"></td>
+                                            <td><input class="deletes" name="ids" value="{{$v->id}}" type="checkbox"></td>
                                             <td>{{$v->id}}</td>
                                             <td>{{$v->item}}</td>
                                             <td>
@@ -79,8 +78,9 @@
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>  <a href="{{url('admin/banner/up?id='.$v->id)}}">编辑</a></button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> <a href="{{url('admin/banner/delete?id='.$v->id)}}">删除</a></button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"> <a href="{{url('admin/banner/up?id='.$v->id)}}"><span class="am-icon-pencil-square-o"></span> 编辑</a></button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                            <a href="{{url('admin/banner/delete?id='.$v->id)}}" class="singleDel"><span class="am-icon-trash-o"></span> 删除</a></button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -94,15 +94,7 @@
                                     <div class="am-fr">
                                         {{ $data->links() }}
                                         {{--设置样式--}}
-                                        <script>
-                                            var page = document.getElementsByClassName('pagination')[0];
-                                            page.className += ' am-pagination tpl-pagination';
-                                            $active = page.getElementsByClassName('active')[0];
-                                            $active.style.color = '#fff';
-                                            $span = $active.getElementsByTagName('span')[0];
-                                            $span.style.background = '#20AAF0';
 
-                                        </script>
 
                                     </div>
                                 </div>
@@ -119,13 +111,18 @@
 @endsection
 @section('js')
     @parent
+
     <script>
         $(function(){
-            $(".update").click(function(){
-                window.location.href="http://www.16xue.cn";
-            });
+            $('#all-del').click(function(){
+                $('.deletes').prop('checked',$(this).prop('checked'));
+            })
+        })
+        $('.singleDel').click(function(){
+            if(!confirm('确认删除?(不可恢复)')){
+                return false;
+            }
         });
-
     </script>
 @endsection
 

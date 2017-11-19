@@ -19,7 +19,7 @@
 			<form class="am-form" action="{{url('admin/doLogin')}}" method="post">
 				<fieldset>
 					<div class="am-form-group">
-						<input type="text" class="" id="admin" name="admin" placeholder="输入用户名">
+						<input type="text" class="" id="admin" name="admin" value="{{(session('admin'))?:''}}" placeholder="输入用户名">
 					</div>
 					<div class="am-form-group">
 						<input type="password" class="" id="pwd" name="pwd" placeholder="密码">
@@ -32,15 +32,20 @@
 						@if(session('msg'))
 							{{session('msg')}}
 						@endif
-					</p>
+						@if(count($errors)>0)
+								@foreach($errors->all() as $value)
+									{{$value}}<br>
+								@endforeach
+						@endif
+           			</p>
 					{{csrf_field()}}
-					<p><button type="submit" class="am-btn am-btn-default">登录</button></p>
+<p><button type="submit" class="am-btn am-btn-default">登录</button></p>
 
-				</fieldset>
+</fieldset>
 
-			</form>
-		</div>
-	</div>
+</form>
+</div>
+</div>
 </div>
 @endsection
 

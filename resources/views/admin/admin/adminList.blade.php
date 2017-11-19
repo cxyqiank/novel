@@ -9,17 +9,17 @@
 @section('content')
         <div class="tpl-content-wrapper">
             <div class="tpl-content-page-title">
-                揽阅后台--公告列表
+                揽阅后台--用户列表
             </div>
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>
-                <li><a href="#">公告管理</a></li>
-                <li class="am-active">公告列表</li>
+                <li><a href="#">用户管理</a></li>
+                <li class="am-active">用户列表</li>
             </ol>
             <div class="tpl-portlet-components">
                 <div class="portlet-title">
                     <div class="caption font-green bold">
-                        <span class="am-icon-server"></span> 公告
+                        <span class="am-icon-server"></span> 用户
 
                     </div>
                     <div class="tpl-portlet-input tpl-fz-ml">
@@ -37,10 +37,7 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a href="/admin/add" style="color: #fff"><span class="am-icon-plus"></span> 新增</a></button>
                                 </div>
                             </div>
                         </div>
@@ -56,29 +53,34 @@
                     </div>
                     <div class="am-g">
                         <div class="am-u-sm-12">
-                            <form class="am-form">
+                            <form class="am-form" >
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
-                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                            <th class="table-check"><input type="checkbox" id="input-check-all" class="tpl-table-fz-check"></th>
                                             <th class="table-id">ID</th>
-                                            <th class="table-title">分类名</th>
-                                            <th class="table-type">分类描述</th>
+                                            <th class="table-title">用户名</th>
                                             <th class="table-set">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($data as $v)
                                         <tr>
-                                            <td><input type="checkbox"></td>
+                                            <td><input class="deletes" name="ids" value="{{$v->id}}" type="checkbox"></td>
                                             <td>{{$v->id}}</td>
                                             <td>{{$v->name}}</td>
-                                            <td>{{$v->content}}</td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> <a href="{{url('admin/edit?id='.$v->id)}}">编辑</a></button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> <a href="{{url('admin/delete?id='.$v->id)}}">删除</a></button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                            <a href="{{url('admin/edit?id='.$v->id)}}">
+                                                                <span class="am-icon-pencil-square-o"></span> 编辑</a>
+                                                        </button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><a href="{{url('admin/delete?id='.$v->id)}}" onclick="javascript:confirm('确认删除?（不可恢复）');"><span class="am-icon-trash-o"></span> 删除</a></button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                                            <a href="{{url('admin/grant/'.$v->id)}}">
+                                                                <span class="am-icon-pencil-square-o"></span> 分配角色</a>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -91,16 +93,7 @@
 
                                     <div class="am-fr">
                                         {{ $data->links() }}
-                                        {{--设置样式--}}
-                                        <script>
-                                            var page = document.getElementsByClassName('pagination')[0];
-                                            page.className += ' am-pagination tpl-pagination';
-                                            $active = page.getElementsByClassName('active')[0];
-                                            $active.style.color = '#fff';
-                                            $span = $active.getElementsByTagName('span')[0];
-                                            $span.style.background = '#20AAF0';
 
-                                        </script>
 
                                     </div>
                                 </div>
@@ -117,13 +110,13 @@
 @endsection
 @section('js')
     @parent
+    <!--全选-->
     <script>
         $(function(){
-            $(".update").click(function(){
-                window.location.href="http://www.16xue.cn";
-            });
-        });
-
+            $('#input-check-all').click(function () {
+                $('.deletes').prop('checked', $(this).prop('checked'));
+            })
+        })
     </script>
 @endsection
 

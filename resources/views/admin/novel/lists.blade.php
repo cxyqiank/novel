@@ -36,24 +36,9 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a href="/admin/novel/add" style="color: #fff"><span class="am-icon-plus"></span> 新增</a></button>
+                                    <button type="button" onclick="$('#del').submit()" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="am-u-sm-12 am-u-md-3">
-                            <div class="am-form-group">
-                                <select data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">所有类别</option>
-              <option value="option2">IT业界</option>
-              <option value="option3">数码产品</option>
-              <option value="option3">笔记本电脑</option>
-              <option value="option3">平板电脑</option>
-              <option value="option3">只能手机</option>
-              <option value="option3">超极本</option>
-            </select>
                             </div>
                         </div>
                         <div class="am-u-sm-12 am-u-md-3">
@@ -67,11 +52,12 @@
                     </div>
                     <div class="am-g">
                         <div class="am-u-sm-12">
-                            <form class="am-form">
+                            <form class="am-form" id="del" action="/admin/novel/multiDel" method="post">
+                                {{csrf_field()}}
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
-                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                            <th class="table-check"><input type="checkbox" id="all-del" class="tpl-table-fz-check"></th>
                                             <th class="table-id">ID</th>
                                             <th class="table-title">信息</th>
                                             <th class="table-type">简介</th>
@@ -82,14 +68,13 @@
                                     <tbody>
                                     @foreach($data as $v)
                                         <tr>
-                                            <td><input type="checkbox"></td>
+                                            <td><input type="checkbox" class="deletes" name="ids[]" value="{{$v->id}}"></td>
                                             <td>{{$v->id}}</td>
                                             <td>
                                                 <img style="width:160px;" src="{{asset($v->pic)}}" alt="11">
                                                 <p>名字：{{$v->name}}</p>
                                                 <p>作者：{{$v->author}}</p>
                                                 <p>状态：{{($v->status)?$v->sections.'章已完结':$v->sections.'章持续更新中'}}</p>
-                                                {{--<p>{{($v->stauts)?$v->sections.'章已完结':$v->sections.'章持续更新中'}}</p>--}}
                                             </td>
                                             <td class="am-hide-sm-only">{{$v->desc}}</td>
                                             <td class="am-hide-sm-only">{{$v->updated_at}}</td>
@@ -104,7 +89,8 @@
                                                         <button class="update am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-success">
                                                             <a href="{{url('admin/novel/info?id='.$v->id)}}">详细信息<span class="am-icon-bars"></span></a>
                                                         </button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> <a href="{{url('admin/novel/delete?id='.$v->id)}}">删除</a></button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                            <a href="{{url('admin/novel/delete?id='.$v->id)}}" class="singleDel"><span class="am-icon-trash-o"></span> 删除</a></button>
                                                     </div>
 
                                                 </div>
@@ -118,16 +104,7 @@
 
                                     <div class="am-fr">
                                         {{ $data->links() }}
-                                        {{--设置样式--}}
-                                        <script>
-                                            var page = document.getElementsByClassName('pagination')[0];
-                                            page.className += ' am-pagination tpl-pagination';
-                                            $active = page.getElementsByClassName('active')[0];
-                                            $active.style.color = '#fff';
-                                            $span = $active.getElementsByTagName('span')[0];
-                                            $span.style.background = '#20AAF0';
 
-                                        </script>
 
                                     </div>
                                 </div>
@@ -145,13 +122,16 @@
 @section('js')
     @parent
     <script>
-        $(function(){
-            $(".update").click(function(){
-                window.location.href="http://www.16xue.cn";
-            });
+        $('#all-del').click(function(){
+            $('.deletes').prop('checked',$(this).prop('checked'));
         });
-
+        $('.singleDel').click(function(){
+            if(!confirm('确认删除?(不可恢复)')){
+                return false;
+            }
+        });
     </script>
+
 @endsection
 
 

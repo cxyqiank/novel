@@ -9,12 +9,12 @@
 @section('content')
     <div class="tpl-content-wrapper">
         <div class="tpl-content-page-title">
-            揽阅后台--小说上传
+            揽阅后台--小说修改
         </div>
         <ol class="am-breadcrumb">
             <li><a href="#" class="am-icon-home">首页</a></li>
             <li><a href="#">小说管理</a></li>
-            <li class="am-active">小说添加</li>
+            <li class="am-active">小说修改</li>
         </ol>
         <div class="tpl-portlet-components">
             <div class="portlet-title">

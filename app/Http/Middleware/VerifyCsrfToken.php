@@ -12,9 +12,19 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        '/api/index',
-        '/api/user/login',
-        '/api/user/register',
-        '/api/user/sendMsg',
+        '/index',
+        '/index-likeRead',
+        '/index-notice',
+        '/index-banner',
+        '/index-hotRead',
+        '/index-collect',
+        '/index',
+        '/shelf',
+        '/hotAuthor',
+        '/collectors',
+        '/contentRead',
+        '/user-login',
+        '/user-register',
+        '/user-sendMsg',
     ];
 }

@@ -55,12 +55,12 @@
                                 <tbody>
                                 @foreach($data['novels'] as $novels)
                                 <tr>
-                                    <td>{{$novels->name}}</td>
-                                    <td>{{$novels->author}}</td>
+                                    <td>{{$novels->novel->name}}</td>
+                                    <td>{{$novels->novel->author}}</td>
                                     <td>{{$novels->visitors}}</td>
                                     <td>{{$novels->collectors}}</td>
-                                    <td>{{$novels->sections}}</td>
-                                    <td>{{date('Y-m-d',strtotime($novels->updated_at))}}</td>
+                                    <td>{{$novels->novel->sections}}</td>
+                                    <td>{{date('Y-m-d',strtotime($novels->novel->updated_at))}}</td>
                                 </tr>
                                 @endforeach
                                 </tbody>

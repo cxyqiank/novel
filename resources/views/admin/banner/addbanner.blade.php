@@ -9,7 +9,7 @@
 @section('content')
         <div class="tpl-content-wrapper">
             <div class="tpl-content-page-title">
-                揽阅后台--小说更新
+                揽阅后台--banner更新
             </div>
             <ol class="am-breadcrumb">
                 <li><a href="#" class="am-icon-home">首页</a></li>

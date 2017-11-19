@@ -66,6 +66,11 @@ class Banner extends BaseController
             //添加失败
             return back()->with('msg','删除失败，请稍后重试');
         }
-
+    }
+    //批量删除
+    public static function multiDel(Request $request)
+    {
+        BannerM::destroy($request->get('ids'));
+        return redirect('/admin/banner/info');
     }
 }

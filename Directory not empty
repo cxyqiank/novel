@@ -1,0 +1,95 @@
+    -> 
+    -> 
+    -> 
+    -> F:\wamp\Apache24\htdocs\app>mysql -uroot -p
+Show warnings disabled.
+ERROR: 
+Unknown command '\A'.
+
+Nothing found
+Please try to run 'help contents' for a list of all accessible topics
+
+    -> Enter password: ********
+    -> Welcome to the MySQL monitor.  Commands end with ; or \g.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[ErrorException]
+  rmdir(C:\Users\ADMINI~1\AppData\Local
+
+
+
+F:amp\Apache24
+Enter' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'or' at line 1
+    -> Your MySQL connection id is 110
+    -> Server version: 5.7.10-log MySQL Community Server (GPL)
+    -> 
+    -> Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+    -> 
+    -> Oracle is a registered trademark of Oracle Corporation and/or its
+    -> affiliates. Other names may be trademarks of their respective
+    -> owners.
+    -> 
+    -> Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    -> 
+    -> mysql> use app;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.
+Your MySQL connection id is 110
+Server version: 5.7.10-log MySQL Community Ser' at line 1
+mysql> Database changed
+    -> mysql>
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> -
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Database changed
+mysql>
+
+
+
+
+
+-' at line 1
+mysql> insert into `shelves` (`user_id`, `content`, `updated_at`, `created_at`
+    -> £»
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '£»' at line 2
+mysql> insert into shelf;s(;);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's(' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into shelfs values('1','2',a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}});
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':2:{i:0' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:39' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}i:1' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:40' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}})' at line 1
+mysql> insert into shelfs() values('1','2',a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}});
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':2:{i:0' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:39' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}i:1' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:40' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}})' at line 1
+mysql> insert into shelfs() values('1','2','a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}}');
+ERROR 1366 (HY000): Incorrect integer value: 'a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}}' for column 'user_id' at row 1
+mysql> insert into shelfs() values('1',a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}},2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':2:{i:0' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:39' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}i:1' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a:1:{s:2:"id"' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'i:40' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}},2)' at line 1
+mysql> insert into shelfs() values('1','a:2:{i:0;a:1:{s:2:"id";i:39;}i:1;a:1:{s:2:"id";i:40;}}',2);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> php artisan make:migration modify_column_collections --table=collections
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'php artisan make:migration modify_column_collections --table=collections
+exit' at line 1
+mysql> exit

@@ -15,10 +15,9 @@ class CreateShelfsTable extends Migration
     {
         Schema::create('shelfs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('novel_id')->unsigned();
+            $table->text('content');
             $table->integer('user_id')->unsigned();
-            $table->index('novel_id');
-            $table->index('user_id');
+            $table->unique('user_id');
         });
     }
 

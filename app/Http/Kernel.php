@@ -19,9 +19,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
+        \App\Http\Middleware\Cross::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        EnableCross::class
-    ];
+        ];
 
     /**
      * The application's route middleware groups.
@@ -37,15 +37,10 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            EnableCross::class
-        ],
+
+            ],
         'admin.login'=>[
             \App\Http\Middleware\AdminLogin::class,
-        ],
-        'api' => [
-            'throttle:60,1',
-            'bindings',
-            'cors'
         ],
     ];
 

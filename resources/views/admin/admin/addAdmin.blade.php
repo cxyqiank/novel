@@ -47,13 +47,10 @@
                                     <div class="am-u-sm-9">
                                         <input  id="name" type="text" value="" name="name">
                                     </div>
-
-
                                 </div>
 
-
                                 <div class="am-form-group">
-                                    <label for="password" class="am-u-sm-3 am-form-label">密码</label>
+                                    <label for="password" class="am-u-sm-3 am-form-label">用户密码</label>
                                     <div class="am-u-sm-9">
                                         <input  id="password" type="password" value="" name="password">
                                     </div>

@@ -65,12 +65,15 @@
             </div>
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
+
                     <li class="tpl-left-nav-item">
                         <a href="{{url('admin')}}" class="nav-link active">
                             <i class="am-icon-home"></i>
                             <span>首页</span>
                         </a>
                     </li>
+
+                    @can('pernovel',$user)
                     <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-bookmark"></i>
@@ -91,6 +94,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endcan
+                    @can('info',$user)
                     <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-picture-o"></i>
@@ -151,26 +156,69 @@
                             </li>
                         </ul>
                     </li>
+                    @endcan
+                    @can('users',$user)
                     <li class="tpl-left-nav-item">
                         <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-camera"></i>
+                            <i class="am-icon-user-md"></i>
                             <span>用户管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                         </a>
                         <ul class="tpl-left-nav-sub-menu" >
                             <li>
                                 <a href="{{url('admin\info')}}">
-                                    <i class="am-icon-angle-right"></i>
+                                    <i class="am-icon-user"></i>
                                     <span>用户列表</span>
                                 </a>
 
                                 <a href="{{url('admin\add')}}">
-                                    <i class="am-icon-angle-right"></i>
+                                    <i class="am-icon-user-plus"></i>
                                     <span>用户添加</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-users"></i>
+                            <span>角色管理</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" >
+                            <li>
+                                <a href="{{url('admin/role-info')}}">
+                                    <i class="am-icon-user"></i>
+                                    <span>角色列表</span>
+                                </a>
+
+                                <a href="{{url('admin/role-add')}}">
+                                    <i class="am-icon-user-plus"></i>
+                                    <span>角色添加</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-cogs"></i>
+                            <span>权限管理</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" >
+                            <li>
+                                <a href="{{url('admin/permission')}}">
+                                    <i class="am-icon-cogs"></i>
+                                    <span>权限列表</span>
+                                </a>
+
+                                <a href="{{url('admin/permission/add')}}">
+                                    <i class="am-icon-cog"></i>
+                                    <span>权限添加</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endcan
                 </ul>
             </div>
         </div>
@@ -182,6 +230,16 @@
 <script src="{{asset('novel/js/amazeui.min.js')}}"></script>
 <script src="{{asset('novel/js/iscroll.js')}}"></script>
 <script src="{{asset('novel/js/app.js')}}"></script>
+<script>
+    var page = document.getElementsByClassName('pagination')[0];
+    if(page){
+        page.className += ' am-pagination tpl-pagination';
+        $active = page.getElementsByClassName('active')[0];
+        $active.style.color = '#fff';
+        $span = $active.getElementsByTagName('span')[0];
+        $span.style.background = '#20AAF0';
+    }
+</script>
 @show
 </body>
 

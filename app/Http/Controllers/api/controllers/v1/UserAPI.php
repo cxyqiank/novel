@@ -2,80 +2,118 @@
 
 namespace App\Http\Controllers\api\controllers\v1;
 
-use App\Model\api\member;
-use App\Model\api\PhoneCode;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\api\Collection;
+use App\Model\api\member;
+use App\Model\api\Phone_code;
+use App\Model\api\PhoneCode;
+use App\Model\api\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Laravelsms\Sms\Facades\Sms;
-use sms\Message;
 
 class UserAPI extends Controller
 {
-    //注册接口
+    # 注册接口
     public function register(Request $request)
     {
-        header('Access-Control-Allow-Origin:*');
         //接收提交过来的数据
         $input = $request->all();
-        $input['forget'] = md5($input['phone']);
-        //将数据插入表
-        member::create($input);
+        if(is_null($input['name'])){
+            return Response::json(['status'=>0]);
+        }
 
+        if(User::where('name',$input['name'])->get()||User::where('phone',$input['phone'])->get())
+        {
+            return Response::json(['status'=>2,'data'=>$input]);
+        }
+        $input['password'] = bcrypt($input['password']);
+        //将数据插入表
+        $res1 = User::create($input);
+        $tcode = Phone_code::where('phone',$input['phone'])->first();
+        $tcode = $tcode['code'];
+        $res2 = $tcode==$input['code'];
+        if($res1)
+        {$result['status1'] = 1;}
+        if($res2)
+        {$result['status2'] = 1;}
+        {$result['code'] = $tcode;}
+        return Response::json($result);
     }
+    # 发送验证码
     public function sendMsg(Request $request)
     {
-        header('Access-Control-Allow-Origin:*');
-
         $smsDriver = Sms::driver();
-        $mobile = '13716021814';
-        $templateVar = ['yzm' => 'verifyCode'];          //verifyCode表示使用程序自动生成的验证码
+        $mobile = $request->get('phone');
+        $templateVar = ['yzm' => 'verifyCode','time'=>2];          //verifyCode表示使用程序自动生成的验证码
         $smsDriver->setTemplateVar($templateVar, true);  //替换模板变量，true表示返回键值对数组，false表示返回值数组
         $result = $smsDriver->singlesSend($mobile);
-        return Response::json($result);
-
-        $result = $message->sendTemplateSMS($_POST['phone'],$data,1);
-        if($result===true)
-        {
-            $input['phone'] = $request->all()['phone'];
-            $input['code']  = $code;
-            $input['send_time'] = time();
-            PhoneCode::create($input);
-            $data = ['status'=>'1'];
-            return Response::json($data);
+        $data['phone'] = $mobile;
+        $data['code'] = $result['verifyCode'];
+        Phone_code::updateOrCreate(['phone'=>$mobile],$data);
+        if($result){
+           return Response::json(['status'=>1]);
+        }else{
+           return Response::json(['status'=>0]);
         }
-        $data = ['status'=>'0'];
-        return Response::json($data);
     }
-    //登录接口
+    # 验证码验证
+    public function checkCode(Request $request)
+    {
+        $phone = $request->get('phone');
+        $code = $request->get('code');
+        $tcode = Phone_code::where('phone',$phone)->get('code');
+        if($code == $tcode)
+        {
+            return Response::json(['status'=>1]);
+        }
+        return Response::json(['status'=>0]);
+    }
+    # 登录接口
     public function login(Request $request)
     {
-        header('Access-Control-Allow-Origin:*');
-
         //接收数据
         $input = $request->all();
         //验证数据
-
         if(isset($input)&&$input!=[])
         {
-            $pwd = member::where('phone',$input['phone'])->get(['pwd'])->toArray();
-            $nickname = member::where('phone',$input['phone'])->get(['nickname'])->toArray();
-            if($pwd[0]['pwd']==md5($input['pwd']))
+
+            $builder = User::where('name',$input['name'])??User::where('phone',$input['name']);
+            $data = $builder->get(['password','name','id']);
+            if(!isset($data[0]['id'])){
+                return Response::json(['status'=>0]);
+            }
+            if($data[0]['pwd']== Hash::check($data[0]['password'],$input['password']))
             {
-                $data = ['status'=>'1','nickname'=>$nickname[0]['nickname']];
+                $token = bcrypt(time().$input['name']);
+                User::where('id',$data[0]['id'])->update(['remember_token'=>$token]);
+                $data = ['status'=>1,
+                    'id'     => $data[0]['id'],
+                    'name'   => $data[0]['name'],
+                    '_token' => $token
+                    ];
                 return Response::json($data);
             }
             else
             {
-                $data = ['status'=>'3'];
+                $data = ['status'=>2];
                 return Response::json($data);
             }
         }
         else
         {
-            $data = ['status'=>'0'];
+            $data = ['status'=>0];
             return Response::json($data);
         }
 
     }
+
+    public static function getUser($token)
+    {
+        $data = User::where('remember_token',$token)->get(['id'])
+            ->toArray();
+        return $data[0]['id'];
+    }
+
 }

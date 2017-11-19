@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Redirect;
 use Session;
 class AdminLogin
 {
@@ -18,9 +17,7 @@ class AdminLogin
     {
         if(!session('admin'))
         {
-//            echo '111';
-//            die();
-            return Redirect('admin/login');
+            return Redirect('login');
         }
         return $next($request);
     }

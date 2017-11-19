@@ -2,7 +2,6 @@
 
 namespace App\Model\api;
 
-class notice extends NoticeModel
+class Notice extends BaseModel
 {
-    protected $table='notice';
 }

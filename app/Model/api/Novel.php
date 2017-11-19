@@ -2,7 +2,7 @@
 
 namespace App\Model\api;
 
-class novel extends NovelModel
+class Novel extends BaseModel
 {
-    //
+
 }

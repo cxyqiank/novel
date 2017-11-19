@@ -2,8 +2,8 @@
 
 namespace App\Model\api;
 
-class PhoneCode extends BaseModel
+class Phone_code extends BaseModel
 {
-    protected $table="phoneCode";
+    protected $table="phone_codes";
     protected $fillable = ['phone','code'];
 }
