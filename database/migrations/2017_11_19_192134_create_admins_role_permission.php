@@ -35,7 +35,7 @@ class CreateAdminsRolePermission extends Migration
         });
         Schema::create('admin_permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->name('name',64)->unique();
+            $table->string('name',64)->unique();
             $table->text('description');
             $table->timestamps();
         });
