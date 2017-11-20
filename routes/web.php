@@ -11,43 +11,43 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('login','admin\Admin@login')->name('login');
+
+Route::get('login','admin/Admin@login')->name('login');
 Route::group(['middleware'=>'web','prefix'=>'admin','namespace'=>'admin'],function(){
     //登录界面
     Route::post('doLogin','Admin@doLogin');
     Route::match(['get','post'],'captcha/{tmp}','Admin@showCaptcha');
 });
 
-Route::group(['namespace'=>'api\controllers'],function(){
+Route::group(['namespace'=>'api/controllers'],function(){
     //首页接口
-    Route::get('index','v1\IndexAPI@indexAPI');
-    Route::match(['get','post'],'index-notice','v1\IndexAPI@indexNotice');
-    Route::match(['get','post'],'index-banner','v1\IndexAPI@indexBanner');
-    Route::match(['get','post'],'index-hotRead','v1\IndexAPI@indexHot');
-    Route::get('index-news','v1\IndexAPI@indexNews');
-    Route::get('index-descs','v1\IndexAPI@indexDescs');
+    Route::get('index','v1/IndexAPI@indexAPI');
+    Route::match(['get','post'],'index-notice','v1/IndexAPI@indexNotice');
+    Route::match(['get','post'],'index-banner','v1/IndexAPI@indexBanner');
+    Route::match(['get','post'],'index-hotRead','v1/IndexAPI@indexHot');
+    Route::get('index-news','v1/IndexAPI@indexNews');
+    Route::get('index-descs','v1/IndexAPI@indexDescs');
 
     //分类页面接口
-    Route::get('cart-index','v1\CartAPI@index');
+    Route::get('cart-index','v1/CartAPI@index');
     //书架
-    Route::post('shelf','v1\Shelf@shelf');
+    Route::post('shelf','v1/Shelf@shelf');
     //左边栏
-    Route::get('hotAuthor','v1\IndexAPI@hotAuthor');
-    Route::post('collectors','v1\Shelf@collectors');
-    Route::post('contentRead','v1\NovelAPI@contentRead');
+    Route::get('hotAuthor','v1/IndexAPI@hotAuthor');
+    Route::post('collectors','v1/Shelf@collectors');
+    Route::post('contentRead','v1/NovelAPI@contentRead');
     //用户
     //注册
-    Route::match(['get','post'],'user-register','v1\UserAPI@register');
+    Route::match(['get','post'],'user-register','v1/UserAPI@register');
     //发送短信
-    Route::match(['get','post'],'user-sendMsg','v1\UserAPI@sendMsg');
+    Route::match(['get','post'],'user-sendMsg','v1/UserAPI@sendMsg');
 
     //登录
-    Route::match(['get','post'],'user-login','v1\UserAPI@login');
+    Route::match(['get','post'],'user-login','v1/UserAPI@login');
 });
-
+Route::group(['middleware'=>['web','admin.login']],function (){
+    Route::get('/','admin/Novel@index');
+});
 Route::group(['middleware'=>['web','admin.login'],'prefix'=>'admin','namespace'=>'admin'],function (){
     //后台首页
 
