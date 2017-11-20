@@ -73,7 +73,6 @@ Route::group(['middleware'=>'can:pernovel'],function(){
     //小说章节
     Route::match(['get','post'],'novel/show','Novel@show');
 });
-
 Route::group(['middleware'=>'can:info'],function() {
     //banner图
     //banner列表

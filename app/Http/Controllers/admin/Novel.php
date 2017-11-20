@@ -6,6 +6,7 @@ use App\Model\admin\Cart;
 use App\Model\admin\Novel as NovelModel;
 use \App\model\admin\Section as SectionModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class Novel extends BaseController
