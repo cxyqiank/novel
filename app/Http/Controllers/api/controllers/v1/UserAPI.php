@@ -90,8 +90,6 @@ class UserAPI extends Controller
                 $token = bcrypt(time().$input['name']);
                 User::where('id',$data[0]['id'])->update(['remember_token'=>$token]);
                 $data = ['status'=>1,
-                    'id'     => $data[0]['id'],
-                    'name'   => $data[0]['name'],
                     '_token' => $token
                     ];
                 return Response::json($data);
@@ -114,7 +112,7 @@ class UserAPI extends Controller
     {
         $data = User::where('remember_token',$token)->get(['id'])
             ->toArray();
-        return $data;
+
         if($data){
             return $data[0]['id'];
         }
