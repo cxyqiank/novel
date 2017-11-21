@@ -112,13 +112,14 @@
 @endsection
 @section('js')
     @parent
+    <script src="{{asset('novel/js/config.js')}}"></script>
     <script>
         $(".blue a").click(function(){
             var url = '/admin/novel/show';
             var status = 'now';
             window.ad = $(this).attr('data');
             window.section = $(this).attr('section');
-            var data = "ad=http://www.app.com/"+window.ad+'&section='+window.section+'&page=0';
+            var data = "ad="+config.site.urlRoot+window.ad+'&section='+window.section+'&page=0';
             that = $(this);
             $.get(url,data,function(res){
                 $('#title').html(that.prop('name'));
@@ -130,7 +131,7 @@
 
             var url = '/admin/novel/show';
             window.page ++;
-            var data = "ad=http://www.app.com/"+window.ad+"&section="+window.section+"&page="+window.page;
+            var data = "ad="+config.site.urlRoot+window.ad+"&section="+window.section+"&page="+window.page;
             that = $(this);
             $.get(url,data,function(res){
                 if(res.content==='')
@@ -147,7 +148,7 @@
         $("#novel_prev").click(function(){
             var url = '/admin/novel/show';
             window.page--;
-            var data = "ad=http://www.app.com/"+window.ad+"&section="+window.section+"&page="+(window.page);
+            var data = "ad="+config.site.urlRoot+window.ad+"&section="+window.section+"&page="+(window.page);
             that = $(this);
             $.get(url,data,function(res){
                 if(res.content==='')
