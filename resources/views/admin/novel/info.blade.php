@@ -53,7 +53,7 @@
                         </div>
 
 
-                        <div class="am-popup" id="my-popup" style="height:80%;width:40%; ">
+                        <div class="am-popup am-u-lg-offset-2" id="my-popup" style="height:60%;width:40%; ">
                             <div class="am-popup-inner">
                                 <div class="am-popup-hd">
                                     <h4 class="am-popup-title" id="title">...</h4>
