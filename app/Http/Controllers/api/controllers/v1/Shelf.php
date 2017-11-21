@@ -20,10 +20,18 @@ class Shelf extends Controller
         }
         switch (request('type')){
             case 'add':
-                shelfModel::add($id,$book_id);
+                $res = shelfModel::add($id,$book_id);
+                if($res){
+                    return Response::json(['status'=>1]);
+                }
+                return Response::json(['status'=>0]);
                 break;
             case 'del':
-                shelfModel::del($id,$book_id);
+                $res = shelfModel::del($id,$book_id);
+                if($res){
+                    return Response::json(['status'=>1]);
+                }
+                return Response::json(['status'=>0]);
                 break;
             default:
                 return Response::json(['status'=>0]);
@@ -34,6 +42,7 @@ class Shelf extends Controller
         $token = request('token');
 
         $id = UserAPI::getUser($token);
+
         if($id==null){
             return Response::json(['status'=>0]);
         }

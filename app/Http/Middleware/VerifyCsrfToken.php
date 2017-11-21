@@ -24,6 +24,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/collectors',
         '/contentRead',
         '/shelfChange',
+        '/collectorChange',
         '/user-login',
         '/user-register',
         '/user-sendMsg',

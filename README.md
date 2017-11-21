@@ -6,3 +6,11 @@
 4. databaseUML 文件为基本数据库结构。
 5. 使用laravel 5.4自带的数据库迁移。
 6. 前台功能正在完善。
+### 在项目中用到触发器如下
+CREATE TRIGGER novel_hot
+AFTER INSERT ON novels
+FOR EACH ROW 
+BEGIN
+  INSERT INTO hots(novel_id,visitors,collectors) VALUES(NEW.id,RAND()*100,RAND()*100);
+END
+

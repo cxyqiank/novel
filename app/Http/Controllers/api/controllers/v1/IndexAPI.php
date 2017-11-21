@@ -52,13 +52,16 @@ ORDER BY h.collectors desc LIMIT 5';
     }
     public function indexDescs()
     {
-        $sql = "SELECT n.*,c.name cart_name,n.collectors
-FROM(SELECT n.id,n.author,n.name,n.desc,n.pic,h.collectors FROM novels n 
-LEFT JOIN hots h ON n.id = h.novel_id 
-ORDER BY h.collectors desc LIMIT 5) n 
-LEFT JOIN novel_carts nc ON n.id = nc.novel_id 
-LEFT JOIN carts c ON nc.cart_id=c.id";
-        $data['descs'] = DB::select($sql);
+        $ids = Novel::where('status',0)
+            ->take(5)->get(['id'])->toArray();
+        $data = [];
+        foreach($ids as $id){
+            $data[]= \App\Model\admin\Novel::info($id);
+        }
+        for($i=0;$i<count($data);$i++){
+           $carts = implode('|',array_column($data[$i]['cart'],'name'));
+           $data[$i]['carts'] = $carts;
+        }
         return $data;
     }
 

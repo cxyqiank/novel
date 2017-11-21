@@ -29,7 +29,11 @@
                         <img src="{{asset($data['pic'])}}" alt="{{$data['name']}}" width="320" height="400">
                         <h2>{{$data['name']}}</h2>
                         <p><b>作者：</b>{{$data['author']}}</p>
-                        <p><b>分类：</b>{{$data['cname']}}</p>
+                        <p><b>分类：</b>
+                        @foreach($data['cart'] as $cart)
+                            {{$cart['name']}}|
+                        @endforeach
+                        </p>
                         <p><b>简介：</b>{{$data['desc']}}</p>
                         <p><b>发布日期：</b>{{date('Y-m-d',strtotime($data['created_at']))}}</p>
                         <p><b>更新日期：</b>{{date('Y-m-d',strtotime($data['updated_at']))}}</p>
@@ -76,7 +80,7 @@
                             <i class="am-icon-comments-o"></i>
                         </div>
                         <div class="details">
-                            <div class="number"> {{$data['hots']['visitors']}} </div>
+                            <div class="number"> {{$data['hot']['visitors']}} </div>
                             <div class="desc"> 阅读量 </div>
                         </div>
                     </div>
@@ -87,7 +91,7 @@
                             <i class="am-icon-bar-chart-o"></i>
                         </div>
                         <div class="details">
-                            <div class="number"> {{$data['hots']['collectors']}} </div>
+                            <div class="number"> {{$data['hot']['collectors']}} </div>
                             <div class="desc"> 收藏量 </div>
                         </div>
                     </div>

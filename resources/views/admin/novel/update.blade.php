@@ -58,11 +58,14 @@
                             <div class="am-form-group">
                                 <label for="cart_id" class="am-u-sm-3 am-form-label">分类 <span class="tpl-form-line-small-title">cart</span></label>
                                 <div class="am-u-sm-9">
-                                    <select  name="cart_id" data-am-selected="{searchBox: {{$data['cart_id']}}}">
-                                        <option value="1">言情</option>
-                                        <option value="2">叙事</option>
-                                        <option value="3">励志</option>
-                                    </select>
+                                    @foreach($cart as $v)
+                                        <label class="am-checkbox-inline" for="cart_{{$v['id']}}" >
+                                            <input  class="am-u-sm-6" type="checkbox" name="cart_id[]" id="cart_{{$v['id']}}" value="{{$v['id']}}"
+                                            @if(in_array($v['id'],$hasCart))
+                                            checked
+                                                @endif>{{$v['name']}}
+                                        </label>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="am-form-group">

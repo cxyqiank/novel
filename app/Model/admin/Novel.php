@@ -14,6 +14,12 @@ class Novel extends BaseModel
     {
         return $this->hasOne(Hot::class,'novel_id','id');
     }
+    //cart关联
+    public function cart()
+    {
+        return $this->belongsToMany(Cart::class,'novel_carts','novel_id','cart_id')
+            ->withPivot(['novel_id','cart_id']);
+    }
 
     //首页
     public static function index()
@@ -25,39 +31,46 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         return $data;
     }
     //添加
-    public static function add($input, $file,$user)
+    public function add($input, $file,$user)
     {
         $input = Novel::upFile($input, $file);
         //获得分类
-        $cart_name = Cart::where('id',$input['cart_id'])
-            ->select('name')
-            ->get()
-            ->toArray();
-        $input['cart_name'] = $cart_name[0]['name'];
         $input['status'] = $input['sections'] =0;
         $input['user_id'] = $user->id;
 
         unset($input['_token']);
         //添加进小说表
         $res1 = Novel::create($input);
+        $novel_id = $res1->getKey();
+        $novel = self::find($novel_id);
 
-        //更新热度表默认值
-
-        $hot['novel_id'] = $res1->getKey();
-        $hot['visitors']= $hot['collectors'] = 0;
-        $res2 =Hot::create($hot);
         //更新关系表
-        $res3 = Novel_cart::add($res1->getKey(),$input['cart_name']);
-        if ($res1 &&$res2 &&$res3) {
+        $res2 = true;
+        $cart = Cart::findMany($input['cart_id']);
+        foreach($cart as $v){
+            $res2 = self::saveCart($novel,$v);
+        }
+        if ($res1&&$res2) {
             return true;
         } else {
             return false;
         }
     }
-    //修改
-    public static function edit($input)
+    public function saveCart($novel,$input)
     {
-        unset($input['_token'], $input['cart_id']);
+        $novel->cart()->save($input);
+        return true;
+    }
+    public function delCart($novel,$input)
+    {
+        $novel->cart()->detach($input);
+        return true;
+    }
+    //修改
+    public function edit($input)
+    {
+        $this->upCart($input);
+        unset($input['_token'],$input['cart_id']);
         $pic = Novel::where('id', $input['id'])->get(['pic'])->toArray();
         if (isset($input['pic'])) {
             $res = unlink($pic[0]['pic']);
@@ -71,6 +84,25 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         } else {
             $input['pic'] = $pic[0]['pic'];
             return Novel::where('id', $input['id'])->update($input);
+        }
+    }
+    public function upCart($input)
+    {
+        //更新分类
+        $carts = Cart::findMany($input['cart_id']);
+        $novel = Novel::find($input['id']);
+        $oldCarts = $novel->cart;
+        //增加
+        $addCarts = $carts->diff($oldCarts);
+
+        foreach($addCarts as $addCart) {
+            self::saveCart($novel,$addCart);
+        }
+
+        //删除
+        $delCarts = $oldCarts->diff($carts);
+        foreach($delCarts as $delCart) {
+            self::delCart($novel,$delCart);
         }
     }
     //删除
@@ -102,15 +134,10 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
     //查询详细信息
     public static function info($id)
     {
-        $data = self::where('id',$id)
+        $data = self::where('id',$id)->with('cart')->with('hot')
             ->get()
             ->toArray();
         $data = $data[0];
-        $data['hots'] = self::find($id)->hot()
-            ->get(['visitors','collectors'])
-            ->toArray();
-        $data['hots'] = $data['hots'][0];
-        $data['cname'] = Cart::info($id);
         return $data;
     }
     //上传文件

@@ -114,6 +114,7 @@ class UserAPI extends Controller
     {
         $data = User::where('remember_token',$token)->get(['id'])
             ->toArray();
+        return $data;
         if($data){
             return $data[0]['id'];
         }

@@ -56,11 +56,9 @@
                                     <div class="am-u-sm-9">
                                             @foreach($data as $v)
                                             <label class="am-checkbox-inline" for="cart_{{$v['id']}}" >
-                                                <input  class="am-u-sm-6" type="checkbox" name="cart_id" id="cart_{{$v['id']}}" value="{{$v['id']}}">{{$v['name']}}
+                                                <input  class="am-u-sm-6" type="checkbox" name="cart_id[]" id="cart_{{$v['id']}}" value="{{$v['id']}}">{{$v['name']}}
                                             </label>
                                             @endforeach
-
-
                                     </div>
                                 </div>
 

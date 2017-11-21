@@ -9,6 +9,8 @@
 namespace App\Model\api;
 
 
+use Illuminate\Support\Facades\Response;
+
 class Collection extends BaseModel
 {
     public $timestamps = false;
@@ -16,15 +18,15 @@ class Collection extends BaseModel
     {
         $data = self::where('user_id',$id)->get(['content']);
         $data = unserialize($data[0]['content']);
-        $data = array_push($data,$book_id);
-        return self::where('user_id',$id)->update('content',serialize($data));
+        array_push($data,$book_id);
+        return self::where('user_id',$id)->update(['content'=>serialize($data)]);
     }
 
     public static function del($id,$book_id)
     {
         $data = self::where('user_id',$id)->get(['content']);
         $data = unserialize($data[0]['content']);
-        $data = array_diff($data,$book_id);
-        return self::where('user_id',$id)->update('content',serialize($data));
+        $data = array_diff($data,[$book_id]);
+        return self::where('user_id',$id)->update(['content'=>serialize($data)]);
     }
 }

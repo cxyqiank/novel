@@ -34,7 +34,7 @@ class Novel extends BaseController
             date_default_timezone_set('PRC');
             $input = $request->all();
             $file = $request->file('pic');
-            $res = NovelModel::add($input,$file,$user);
+            $res = (new NovelModel())->add($input,$file,$user);
             if($res){
                 return Redirect('admin/novel/lists');
             }else {
@@ -48,12 +48,12 @@ class Novel extends BaseController
     //小说信息修改
     public function update(Request $request)
     {
+
         if(!NovelModel::change(request('id')))
             return back()->with('msg','你没有权限修改');
         if($request->isMethod('post'))
         {
-            $input = $request->all();
-            $res = NovelModel::edit($input);
+            $res = (new NovelModel())->edit($request->all());
             if($res){
                 return Redirect('admin/novel/lists');
             }else{
@@ -61,9 +61,10 @@ class Novel extends BaseController
             }
         }
         $id = $request->all('get.id');
-        $novel = NovelModel::find($id);
-        $novel['id'] = $id;
-        return view('admin/novel/update',['data'=>$novel[0]]);
+        $novel = NovelModel::with('cart')->find($id)->toArray();
+        $data = Cart::all();
+        $hasCart = array_column($novel[0]['cart'],'id');
+        return view('admin/novel/update',['data'=>$novel[0],'cart'=>$data,'hasCart'=>$hasCart]);
     }
     //小说删除
     public function delete(Request $request)

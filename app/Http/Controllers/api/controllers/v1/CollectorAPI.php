@@ -26,10 +26,18 @@ class CollectorAPI extends Controller
         }
         switch (request('type')){
             case 'add':
-                Collection::add($id,$book_id);
+                $res = Collection::add($id,$book_id);
+                if($res){
+                    return Response::json(['status'=>1]);
+                }
+                return Response::json(['status'=>0]);
                 break;
             case 'del':
-                Collection::del($id,$book_id);
+                $res = Collection::del($id,$book_id);
+                if($res){
+                    return Response::json(['status'=>1]);
+                }
+                return Response::json(['status'=>0]);
                 break;
             default:
                 return Response::json(['status'=>0]);
@@ -47,7 +55,7 @@ class CollectorAPI extends Controller
         //验证数据
         $data = Collection::where('user_id',$id)->get(['content']);
         $data = unserialize($data[0]['content']);
-        $data = (new Shelf())->getBooks(array_values($data));
+        $data = (new Shelf())->getBooks($data);
         return Response::json($data);
 
     }
