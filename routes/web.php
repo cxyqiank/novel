@@ -32,6 +32,8 @@ Route::group(['namespace'=>'api\controllers'],function(){
     Route::get('cart-index','v1\CartAPI@index');
     //书架
     Route::post('shelf','v1\Shelf@shelf');
+    Route::post('shelfChange','v1\Shelf@shelfChange');
+    Route::post('collectorChange','v1\CollectorAPI@collectorChange');
     //左边栏
     Route::get('hotAuthor','v1\IndexAPI@hotAuthor');
     Route::post('collectors','v1\CollectorAPI@collectors');

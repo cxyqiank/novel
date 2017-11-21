@@ -12,7 +12,7 @@ class Novel extends BaseModel
     protected $fillable = ['user_id','name', 'pic', 'author', 'desc', 'status', 'sections'];
     public function hot()
     {
-        return $this->hasOne(hot::class,'novel_id','id');
+        return $this->hasOne(Hot::class,'novel_id','id');
     }
 
     //首页

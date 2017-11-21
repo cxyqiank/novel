@@ -8,7 +8,7 @@ class Hot extends BaseModel
     public $timestamps = false;
     public function Novel()
     {
-        return $this->belongsTo(\app\model\admin\Novel::class,'novel_id','id');
+        return $this->belongsTo(\app\Model\admin\Novel::class,'novel_id','id');
     }
     public static function del($id)
     {

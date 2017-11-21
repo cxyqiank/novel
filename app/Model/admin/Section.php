@@ -1,6 +1,6 @@
 <?php
 
-namespace App\model\admin;
+namespace App\Model\admin;
 
 class Section extends BaseModel
 {

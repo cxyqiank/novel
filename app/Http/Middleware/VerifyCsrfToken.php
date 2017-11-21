@@ -23,6 +23,7 @@ class VerifyCsrfToken extends BaseVerifier
         '/hotAuthor',
         '/collectors',
         '/contentRead',
+        '/shelfChange',
         '/user-login',
         '/user-register',
         '/user-sendMsg',

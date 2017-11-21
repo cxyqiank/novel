@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Model\admin\Cart;
 use App\Model\admin\Novel as NovelModel;
-use \App\model\admin\Section as SectionModel;
+use \App\Model\admin\Section as SectionModel;
 use Illuminate\Http\Request;
 use \App\Model\admin\Admin;
 use Illuminate\Support\Facades\Gate;

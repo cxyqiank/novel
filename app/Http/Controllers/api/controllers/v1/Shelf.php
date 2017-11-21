@@ -32,11 +32,13 @@ class Shelf extends Controller
     public function shelf()
     {
         $token = request('token');
+
         $id = UserAPI::getUser($token);
         if($id==null){
             return Response::json(['status'=>0]);
         }
         $data = shelfModel::where('user_id',$id)->get(['content']);
+
         $data = unserialize($data[0]['content']);
         $data = $this->getBooks(array_values($data));
         return Response::json($data);

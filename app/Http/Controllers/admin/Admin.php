@@ -10,7 +10,6 @@ namespace App\Http\Controllers\admin;
 
 use App\Model\admin\Admin as AdminModel;
 use App\Model\admin\AdminRole;
-use App\Model\admin\Role as RoleModel;
 use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +44,7 @@ class Admin extends BaseController
     public function doLogin(Request $request)
     {
         $Input = $request->all();
-        $Input['id'] = \App\Model\admin\Admin::where('name',$Input['admin'])
+        $Input['id'] = AdminModel::where('name',$Input['admin'])
             ->get(['id'])->toArray();
         $Input['id'] = $Input['id'][0]['id'];
 
@@ -148,14 +147,14 @@ class Admin extends BaseController
 
     }
     // 角色
-    public function grant(\App\Model\admin\Admin $user)
+    public function grant(AdminModel $user)
     {
         $roles = AdminRole::all();
         $myRoles =$user->roles;
         return view('admin/admin/grant',compact('roles','myRoles','user'));
     }
     // 存储用户角色
-    public function store(\App\Model\admin\Admin $user)
+    public function store(AdminModel $user)
     {
         $roles = AdminRole::findMany(request('roles'));
         $myRoles = $user->roles;
