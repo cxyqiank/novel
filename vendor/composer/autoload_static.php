@@ -394,6 +394,7 @@ class ComposerStaticInitacf072ecd1a4dfcc6435b1ba35c2b84b
     );
 
     public static $classMap = array (
+        'AddColumnNovels' => __DIR__ . '/../..' . '/database/migrations/2017_11_20_221631_add_column_novels.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -413,6 +414,7 @@ class ComposerStaticInitacf072ecd1a4dfcc6435b1ba35c2b84b
         'App\\Http\\Controllers\\admin\\Role' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Role.php',
         'App\\Http\\Controllers\\admin\\Section' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Section.php',
         'App\\Http\\Controllers\\api\\controllers\\v1\\CartAPI' => __DIR__ . '/../..' . '/app/Http/Controllers/api/controllers/v1/CartAPI.php',
+        'App\\Http\\Controllers\\api\\controllers\\v1\\CollectorAPI' => __DIR__ . '/../..' . '/app/Http/Controllers/api/controllers/v1/CollectorAPI.php',
         'App\\Http\\Controllers\\api\\controllers\\v1\\IndexAPI' => __DIR__ . '/../..' . '/app/Http/Controllers/api/controllers/v1/IndexAPI.php',
         'App\\Http\\Controllers\\api\\controllers\\v1\\NovelAPI' => __DIR__ . '/../..' . '/app/Http/Controllers/api/controllers/v1/NovelAPI.php',
         'App\\Http\\Controllers\\api\\controllers\\v1\\Shelf' => __DIR__ . '/../..' . '/app/Http/Controllers/api/controllers/v1/Shelf.php',
@@ -426,6 +428,8 @@ class ComposerStaticInitacf072ecd1a4dfcc6435b1ba35c2b84b
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Model\\admin\\Admin' => __DIR__ . '/../..' . '/app/Model/admin/Admin.php',
+        'App\\Model\\admin\\AdminPermission' => __DIR__ . '/../..' . '/app/Model/admin/AdminPermission.php',
+        'App\\Model\\admin\\AdminRole' => __DIR__ . '/../..' . '/app/Model/admin/AdminRole.php',
         'App\\Model\\admin\\Banner' => __DIR__ . '/../..' . '/app/Model/admin/Banner.php',
         'App\\Model\\admin\\BaseModel' => __DIR__ . '/../..' . '/app/Model/admin/BaseModel.php',
         'App\\Model\\admin\\Cart' => __DIR__ . '/../..' . '/app/Model/admin/Cart.php',
@@ -433,9 +437,6 @@ class ComposerStaticInitacf072ecd1a4dfcc6435b1ba35c2b84b
         'App\\Model\\admin\\Notice' => __DIR__ . '/../..' . '/app/Model/admin/Notice.php',
         'App\\Model\\admin\\Novel' => __DIR__ . '/../..' . '/app/Model/admin/Novel.php',
         'App\\Model\\admin\\Novel_cart' => __DIR__ . '/../..' . '/app/Model/admin/Novel_cart.php',
-        'App\\Model\\admin\\Permission' => __DIR__ . '/../..' . '/app/Model/admin/Permission.php',
-        'App\\Model\\admin\\Role' => __DIR__ . '/../..' . '/app/Model/admin/Role.php',
-        'App\\Model\\admin\\Role_permission' => __DIR__ . '/../..' . '/app/Model/admin/Role_permission.php',
         'App\\Model\\api\\Banner' => __DIR__ . '/../..' . '/app/Model/api/Banner.php',
         'App\\Model\\api\\BaseModel' => __DIR__ . '/../..' . '/app/Model/api/BaseModel.php',
         'App\\Model\\api\\Cart' => __DIR__ . '/../..' . '/app/Model/api/Cart.php',

@@ -28,12 +28,8 @@
                                 <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
                         </div>
                     </div>
-
-
                 </div>
-
                 <div class="tpl-block">
-
                     <div class="am-g">
                         <div class="tpl-form-body tpl-form-line">
                             @if(session('msg'))
@@ -53,12 +49,10 @@
                                         <small>章节名称在5-20个字之间</small>
                                     </div>
                                 </div>
-
-                                
                                 <div class="am-form-group">
                                     <label for="" class="am-u-sm-3 am-form-label">章节内容</label>
-                                    <div class="am-u-sm-9">
-                                        <textarea class="am-u-lg-offset-4" id="content" name="content" placeholder="章节内容"></textarea>
+                                    <div class="am-u-sm-12">
+                                        <textarea class="am-u-lg-offset-2" id="content" name="content" placeholder="章节内容"></textarea>
                                     </div>
                                     <script type="text/javascript" charset="utf-8" src="{{asset('novel/ueditor/ueditor.parse.js')}}"></script>
                                     <script type="text/javascript" charset="utf-8" src="{{asset('novel/ueditor/ueditor.config.js')}}"></script>
@@ -67,25 +61,29 @@
                                     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
                                     <script type="text/javascript" charset="utf-8" src="{{asset('novel/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
                                     <script type="text/javascript">
-
                                         //实例化编辑器
                                         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-                                        var ue = UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:320,autoHeightEnabled: false});
-
+                                        var ue = UE.getEditor('content',{
+                                            toolbars: [
+                                                ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder',
+                                                    'strikethrough','paragraph', 'fontfamily', 'fontsize' ]
+                                            ],initialFrameWidth:800,initialFrameHeight:320,autoHeightEnabled: false});
                                     </script>
                                 </div>
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <label for="end" >
                                         <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                             完结章
                                                 <input style="opacity: 1;" name="status" id="end" type="radio" value="1" class="am-radio-inline">
-                                            </label>
                                         </button>
+                                        </label>
+                                        <label for="up">
                                         <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                            <label for="up" class="am-icon-check">非完结章
+                                            非完结章
                                                 <input style="opacity: 1;" name="status" id="up" type="radio" value="0" class="am-radio-inline" checked>
-                                            </label>
                                         </button>
+                                        </label>
 
 
                                     </div>

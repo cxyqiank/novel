@@ -9,6 +9,7 @@ use App\Model\api\Phone_code;
 use App\Model\api\PhoneCode;
 use App\Model\api\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Laravelsms\Sms\Facades\Sms;
@@ -114,6 +115,17 @@ class UserAPI extends Controller
         $data = User::where('remember_token',$token)->get(['id'])
             ->toArray();
         return $data[0]['id'];
+    }
+
+    public function getInfo()
+    {
+        $token = request('token');
+        $user_id = self::getUser($token);
+        $info = DB::name('user_infos')
+            ->where('user_id',$user_id)
+            ->get(['nickname','qq','phone'])
+            ->toArray();
+        return Response::json($info[0]);
     }
 
 }

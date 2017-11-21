@@ -12,41 +12,42 @@
 */
 
 
-Route::get('login','admin/Admin@login')->name('login');
+Route::get('login','admin\Admin@login')->name('login');
 Route::group(['middleware'=>'web','prefix'=>'admin','namespace'=>'admin'],function(){
     //登录界面
     Route::post('doLogin','Admin@doLogin');
     Route::match(['get','post'],'captcha/{tmp}','Admin@showCaptcha');
 });
 
-Route::group(['namespace'=>'api/controllers'],function(){
+Route::group(['namespace'=>'api\controllers'],function(){
     //首页接口
-    Route::get('index','v1/IndexAPI@indexAPI');
-    Route::match(['get','post'],'index-notice','v1/IndexAPI@indexNotice');
-    Route::match(['get','post'],'index-banner','v1/IndexAPI@indexBanner');
-    Route::match(['get','post'],'index-hotRead','v1/IndexAPI@indexHot');
-    Route::get('index-news','v1/IndexAPI@indexNews');
-    Route::get('index-descs','v1/IndexAPI@indexDescs');
+    Route::get('index','v1\IndexAPI@indexAPI');
+    Route::match(['get','post'],'index-notice','v1\IndexAPI@indexNotice');
+    Route::match(['get','post'],'index-banner','v1\IndexAPI@indexBanner');
+    Route::match(['get','post'],'index-hotRead','v1\IndexAPI@indexHot');
+    Route::get('index-news','v1\IndexAPI@indexNews');
+    Route::get('index-descs','v1\IndexAPI@indexDescs');
 
     //分类页面接口
-    Route::get('cart-index','v1/CartAPI@index');
+    Route::get('cart-index','v1\CartAPI@index');
     //书架
-    Route::post('shelf','v1/Shelf@shelf');
+    Route::post('shelf','v1\Shelf@shelf');
     //左边栏
-    Route::get('hotAuthor','v1/IndexAPI@hotAuthor');
-    Route::post('collectors','v1/Shelf@collectors');
-    Route::post('contentRead','v1/NovelAPI@contentRead');
+    Route::get('hotAuthor','v1\IndexAPI@hotAuthor');
+    Route::post('collectors','v1\CollectorAPI@collectors');
+    Route::post('contentRead','v1\NovelAPI@contentRead');
     //用户
+    Route::post('/user_info','v1\UserAPI@getInfo');
     //注册
-    Route::match(['get','post'],'user-register','v1/UserAPI@register');
+    Route::match(['get','post'],'user-register','v1\UserAPI@register');
     //发送短信
-    Route::match(['get','post'],'user-sendMsg','v1/UserAPI@sendMsg');
+    Route::match(['get','post'],'user-sendMsg','v1\UserAPI@sendMsg');
 
     //登录
-    Route::match(['get','post'],'user-login','v1/UserAPI@login');
+    Route::match(['get','post'],'user-login','v1\UserAPI@login');
 });
 Route::group(['middleware'=>['web','admin.login']],function (){
-    Route::get('/','admin/Novel@index');
+    Route::get('/','admin\Novel@index');
 });
 Route::group(['middleware'=>['web','admin.login'],'prefix'=>'admin','namespace'=>'admin'],function (){
     //后台首页
@@ -58,19 +59,22 @@ Route::group(['middleware'=>'can:pernovel'],function(){
     //小说列表
     Route::get('novel/lists','Novel@lists');
     //小说添加界面
-    Route::match(['get','post'],'novel/add','Novel@add');
-    //小说修改界面
-    Route::match(['get','post'],'novel/update','Novel@update');
-    //小说删除
-    Route::get('novel/delete','Novel@delete');
-    //批量删除
-    Route::post('novel/multiDel','Novel@multiDel');
-    //小说更新界面
-    Route::match(['get','post'],'novel/addSection/','Section@add');
+    Route::match(['get','post'],'novel/add/{user}','Novel@add');
+    Route::group(['middleware'=>'can:change'],function (){
+        //小说修改界面
+        Route::match(['get','post'],'novel/update/','Novel@update');
+        //小说删除
+        Route::get('novel/delete','Novel@delete');
+        //批量删除
+        Route::post('novel/multiDel','Novel@multiDel');
+        //小说更新界面
+        Route::match(['get','post'],'novel/addSection/','Section@add');
+    });
+
     Route::match(['get','post'],'novel/addSection/doAdd','Section@doAdd');
     //小说信息
     Route::match(['get','post'],'novel/info','Novel@info');
-    //小说章节
+    //小说章节展示
     Route::match(['get','post'],'novel/show','Novel@show');
 });
 Route::group(['middleware'=>'can:info'],function() {

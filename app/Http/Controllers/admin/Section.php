@@ -8,14 +8,16 @@ use \App\Model\admin\Novel as NovelModel;
 
 class Section extends BaseController
 {
-    //小说对应章节
-    public function info()
-    {
-
-    }
     //章节添加
     public function add(Request $request)
     {
+        $status = NovelModel::where('id',request('id'))
+            ->get(['status'])->toArray();
+        $status = $status[0]['status'];
+        if($status==1)
+            return back()->with('msg','已完结,不能上传新章节');
+        if(!NovelModel::change(request('id')))
+            return back()->with('msg','你没有权限修改');
         $novel_id = $request->get('id');
         $sections = $request->get('sections');
         return view('admin/novel/addSection',['novel_id'=>$novel_id,'sections'=>$sections]);
@@ -23,6 +25,8 @@ class Section extends BaseController
 
     public function doAdd(Request $request)
     {
+        if(!NovelModel::change(request('novel_id')))
+            return back()->with('msg','你没有权限修改');
         $input = $request->all();
         //2.上传路径
         $destination = 'storage/novel/sections/'.$input['novel_id'].'/';

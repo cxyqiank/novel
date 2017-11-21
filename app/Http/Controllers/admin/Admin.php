@@ -45,6 +45,10 @@ class Admin extends BaseController
     public function doLogin(Request $request)
     {
         $Input = $request->all();
+        $Input['id'] = \App\Model\admin\Admin::where('name',$Input['admin'])
+            ->get(['id'])->toArray();
+        $Input['id'] = $Input['id'][0]['id'];
+
         $admin['name'] = $Input['admin'];
         $admin['password'] = $Input['pwd'];
         $captcha = $Input['captcha'];

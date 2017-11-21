@@ -45,8 +45,8 @@
                                     {{csrf_field()}}
                                     @foreach($permissions as $v)
                                     <div class="am-form-group">
-                                        <label for="permission" class="am-u-sm-2 am-form-label text-center">
-                                            <input type="checkbox" name="permissions" id="permission[]" value="{{$v->id}}"
+                                        <label for="permission_{{$v->id}}" class="am-u-sm-2 am-form-label text-center">
+                                            <input type="checkbox" name="permissions[]" id="permission_{{$v->id}}" value="{{$v->id}}"
                                             @if($myPermissions->contains($v))checked
                                                     @endif>
                                             {{$v->name}}

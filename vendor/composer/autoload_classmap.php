@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddColumnNovels' => $baseDir . '/database/migrations/2017_11_20_221631_add_column_novels.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -25,6 +26,7 @@ return array(
     'App\\Http\\Controllers\\admin\\Role' => $baseDir . '/app/Http/Controllers/admin/Role.php',
     'App\\Http\\Controllers\\admin\\Section' => $baseDir . '/app/Http/Controllers/admin/Section.php',
     'App\\Http\\Controllers\\api\\controllers\\v1\\CartAPI' => $baseDir . '/app/Http/Controllers/api/controllers/v1/CartAPI.php',
+    'App\\Http\\Controllers\\api\\controllers\\v1\\CollectorAPI' => $baseDir . '/app/Http/Controllers/api/controllers/v1/CollectorAPI.php',
     'App\\Http\\Controllers\\api\\controllers\\v1\\IndexAPI' => $baseDir . '/app/Http/Controllers/api/controllers/v1/IndexAPI.php',
     'App\\Http\\Controllers\\api\\controllers\\v1\\NovelAPI' => $baseDir . '/app/Http/Controllers/api/controllers/v1/NovelAPI.php',
     'App\\Http\\Controllers\\api\\controllers\\v1\\Shelf' => $baseDir . '/app/Http/Controllers/api/controllers/v1/Shelf.php',
@@ -38,6 +40,8 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Model\\admin\\Admin' => $baseDir . '/app/Model/admin/Admin.php',
+    'App\\Model\\admin\\AdminPermission' => $baseDir . '/app/Model/admin/AdminPermission.php',
+    'App\\Model\\admin\\AdminRole' => $baseDir . '/app/Model/admin/AdminRole.php',
     'App\\Model\\admin\\Banner' => $baseDir . '/app/Model/admin/Banner.php',
     'App\\Model\\admin\\BaseModel' => $baseDir . '/app/Model/admin/BaseModel.php',
     'App\\Model\\admin\\Cart' => $baseDir . '/app/Model/admin/Cart.php',
@@ -45,9 +49,6 @@ return array(
     'App\\Model\\admin\\Notice' => $baseDir . '/app/Model/admin/Notice.php',
     'App\\Model\\admin\\Novel' => $baseDir . '/app/Model/admin/Novel.php',
     'App\\Model\\admin\\Novel_cart' => $baseDir . '/app/Model/admin/Novel_cart.php',
-    'App\\Model\\admin\\Permission' => $baseDir . '/app/Model/admin/Permission.php',
-    'App\\Model\\admin\\Role' => $baseDir . '/app/Model/admin/Role.php',
-    'App\\Model\\admin\\Role_permission' => $baseDir . '/app/Model/admin/Role_permission.php',
     'App\\Model\\api\\Banner' => $baseDir . '/app/Model/api/Banner.php',
     'App\\Model\\api\\BaseModel' => $baseDir . '/app/Model/api/BaseModel.php',
     'App\\Model\\api\\Cart' => $baseDir . '/app/Model/api/Cart.php',

@@ -3,12 +3,13 @@
 namespace App\Model\admin;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 
 class Novel extends BaseModel
 {
 
-    protected $fillable = ['name', 'pic', 'author', 'desc', 'status', 'sections'];
+    protected $fillable = ['user_id','name', 'pic', 'author', 'desc', 'status', 'sections'];
     public function hot()
     {
         return $this->hasOne(hot::class,'novel_id','id');
@@ -24,7 +25,7 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         return $data;
     }
     //添加
-    public static function add($input, $file)
+    public static function add($input, $file,$user)
     {
         $input = Novel::upFile($input, $file);
         //获得分类
@@ -34,6 +35,8 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
             ->toArray();
         $input['cart_name'] = $cart_name[0]['name'];
         $input['status'] = $input['sections'] =0;
+        $input['user_id'] = $user->id;
+
         unset($input['_token']);
         //添加进小说表
         $res1 = Novel::create($input);
@@ -129,4 +132,17 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         }
         return $content;
     }
+    //判断能否修改
+    public static function change($id)
+    {
+        if(!Gate::allows('change'))
+        {return false;}
+        $user_id = self::where('id',$id)
+            ->get(['user_id'])->toArray();
+        $user_id = $user_id[0]['user_id'];
+        if(!(Gate::allows('users')||session('admin.id')==$user_id))
+        {return false;}
+        return true;
+    }
+
 }

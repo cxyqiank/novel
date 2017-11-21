@@ -6,7 +6,8 @@ use App\Model\admin\Cart;
 use App\Model\admin\Novel as NovelModel;
 use \App\model\admin\Section as SectionModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use \App\Model\admin\Admin;
+use Illuminate\Support\Facades\Gate;
 use Session;
 
 class Novel extends BaseController
@@ -26,13 +27,14 @@ class Novel extends BaseController
         return view('admin/novel/lists',['data'=>$data]);
     }
     //小说添加
-    public function add(Request $request)
+    public function add(Request $request,Admin $user)
     {
+
         if($request->isMethod('post')){
             date_default_timezone_set('PRC');
             $input = $request->all();
             $file = $request->file('pic');
-            $res = NovelModel::add($input,$file);
+            $res = NovelModel::add($input,$file,$user);
             if($res){
                 return Redirect('admin/novel/lists');
             }else {
@@ -46,6 +48,8 @@ class Novel extends BaseController
     //小说信息修改
     public function update(Request $request)
     {
+        if(!NovelModel::change(request('id')))
+            return back()->with('msg','你没有权限修改');
         if($request->isMethod('post'))
         {
             $input = $request->all();
@@ -64,6 +68,8 @@ class Novel extends BaseController
     //小说删除
     public function delete(Request $request)
     {
+        if(!NovelModel::change(request('id')))
+            return back()->with('msg','你没有权限修改');
         $input = $request->all();
         $res = NovelModel::del($input);
         if($res){
@@ -98,6 +104,8 @@ class Novel extends BaseController
     //批量删除
     public static function multiDel(Request $request)
     {
+        if(!(Gate::allows('users')))
+            return back()->with('msg','你没有权限');
         $v = [];
         foreach ($request->get('ids') as $v['id']){
             NovelModel::del($v);

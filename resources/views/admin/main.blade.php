@@ -85,7 +85,7 @@
                                     <span>小说列表</span>
                                 </a>
 
-                                <a href="{{url('admin\novel\add')}}">
+                                <a href="/admin/novel/add/{{session('admin.id')}}">
                                     <i class="am-icon-angle-right"></i>
                                     <span>小说上传</span>
                                 </a>

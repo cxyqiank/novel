@@ -36,7 +36,7 @@
 
                     <div class="am-g">
                         <div class="tpl-form-body tpl-form-line">
-                            <form class="am-form tpl-form-line-form" action="{{url('admin/novel/add')}}" enctype="multipart/form-data" method="post">
+                            <form class="am-form tpl-form-line-form" action="{{url('admin/novel/add/'.session('admin.id'))}}" enctype="multipart/form-data" method="post">
                                 <div class="am-form-group">
                                     {{csrf_field()}}
                                     <label for="name" class="am-u-sm-3 am-form-label">小说名字 <span class="tpl-form-line-small-title">Title</span></label>
@@ -45,19 +45,15 @@
                                         <small>小说名字在5-20个字之间</small>
                                     </div>
                                 </div>
-
-                                
                                 <div class="am-form-group">
                                     <label for="novel_desc" class="am-u-sm-3 am-form-label">小说简介</label>
                                     <div class="am-u-sm-9">
                                         <textarea class="" rows="10" id="desc" name="desc" placeholder="小说简介"></textarea>
                                     </div>
                                 </div>
-                                
                                 <div class="am-form-group">
                                     <label for="cart_id" class="am-u-sm-3 am-form-label">分类 <span class="tpl-form-line-small-title">cart</span></label>
                                     <div class="am-u-sm-9">
-
                                             @foreach($data as $v)
                                             <label class="am-checkbox-inline" for="cart_{{$v['id']}}" >
                                                 <input  class="am-u-sm-6" type="checkbox" name="cart_id" id="cart_{{$v['id']}}" value="{{$v['id']}}">{{$v['name']}}
