@@ -20,7 +20,6 @@ class Section extends BaseController
             return back()->with('msg','你没有权限修改');
         $novel_id = $request->get('id');
         $section = $request->get('section');
-
         return view('admin/novel/addSection',['novel_id'=>$novel_id,'sections'=>$section]);
     }
 

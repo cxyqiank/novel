@@ -42,7 +42,9 @@
 <p><button type="submit" class="am-btn am-btn-default">登录</button></p>
 
 </fieldset>
-
+<p>信息管理员：admin_info 密码：12345678</p>
+<p>小说管理员：admin_author 密码：12345678</p>
+<p>小说管理员：admin_root 密码：admin123</p>
 </form>
 </div>
 </div>
