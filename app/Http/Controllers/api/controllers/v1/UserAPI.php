@@ -125,11 +125,10 @@ class UserAPI extends Controller
     {
         $token = request('token');
         $user_id = self::getUser($token);
-        $info = DB::name('user_infos')
-            ->where('user_id',$user_id)
-            ->get(['nickname','qq','phone'])
-            ->toArray();
-        return Response::json($info[0]);
+        $sql = 'SELECT nickname,qq,phone FROM user_infos 
+      WHERE user_id='.$user_id.' ';
+        $info = DB::select($sql);
+        return Response::json($info);
     }
 
 }
