@@ -19,8 +19,9 @@ class Section extends BaseController
         if(!NovelModel::change(request('id')))
             return back()->with('msg','你没有权限修改');
         $novel_id = $request->get('id');
-        $sections = $request->get('sections');
-        return view('admin/novel/addSection',['novel_id'=>$novel_id,'sections'=>$sections]);
+        $section = $request->get('section');
+
+        return view('admin/novel/addSection',['novel_id'=>$novel_id,'sections'=>$section]);
     }
 
     public function doAdd(Request $request)
