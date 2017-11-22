@@ -61,7 +61,7 @@ ORDER BY h.collectors desc LIMIT 5';
         for($i=0;$i<count($data);$i++){
            $carts = implode('|',array_column($data[$i]['cart'],'name'));
            $data[$i]['carts'] = $carts;
-           $data['collectors'] = $data[$i]['hot']['collectors'];
+           $data['collectors'] = $data[$i]['hot'][0]['collectors'];
         }
 
         return $data;
