@@ -20,7 +20,9 @@ class Section extends BaseModel
                 ->get(['id'])
                 ->toArray();
             $section = Section::find($section[0]['id']);
-            $res4 = $section->delete();
+            if($section) {
+                $res4 = $section->delete();
+            }
         }
         if($res3 && $res4){
             return true;

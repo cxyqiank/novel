@@ -92,7 +92,7 @@
                                                         <button class="update am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-success">
                                                             <a href="{{url('admin/novel/info?id='.$v->id)}}">详细信息<span class="am-icon-bars"></span></a>
                                                         </button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" type="button">
                                                             <a href="{{url('admin/novel/delete?id='.$v->id)}}" class="singleDel"><span class="am-icon-trash-o"></span> 删除</a></button>
                                                     </div>
 

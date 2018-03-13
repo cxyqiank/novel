@@ -113,7 +113,10 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
         $res1 = $novel->delete();
         //删除图片
         $arr = $novel->toArray();
-        $res2 = unlink($arr['pic']);
+        $res2 = true;
+        if(file_exists('/' . $arr['pic'])) {
+            $res2 = unlink($arr['pic']);
+        }
         //删除全部章节内容
         $res3 = Section::delAll($id);
         //更新热度表
