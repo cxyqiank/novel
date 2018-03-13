@@ -110,10 +110,12 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
     {
         $id = $input['id'];
         $novel = Novel::find($id);
-        $res1 = $novel->delete();
+        $res1 = $res2 = true;
+        if($novel){
+            $res1 = $novel->delete();
+        }
         //删除图片
         $arr = $novel->toArray();
-        $res2 = true;
         if(file_exists('/' . $arr['pic'])) {
             $res2 = unlink($arr['pic']);
         }
@@ -165,14 +167,18 @@ FROM novels n LEFT JOIN hots h ON n.id = h.novel_id GROUP BY n.author ORDER BY c
     //判断能否修改
     public static function change($id)
     {
-        if(!Gate::allows('change'))
-        {return false;}
-        $user_id = self::where('id',$id)
-            ->get(['user_id'])->toArray();
-        $user_id = $user_id[0]['user_id'];
-        if(!(Gate::allows('users')||session('admin.id')==$user_id))
-        {return false;}
-        return true;
+        if( Novel::find($id)) {
+            if(!Gate::allows('change'))
+            {return false;}
+            $user_id = self::where('id',$id)
+                ->get(['user_id'])->toArray();
+            $user_id = $user_id[0]['user_id'];
+            if(!(Gate::allows('users')||session('admin.id')==$user_id))
+            {return false;}
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

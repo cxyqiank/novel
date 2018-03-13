@@ -70,7 +70,7 @@ class Novel extends BaseController
     public function delete(Request $request)
     {
         if(!NovelModel::change(request('id')))
-            return back()->with('msg','你没有权限修改');
+            return redirect('admin/novel/lists')->with('msg', '资源不存在或你没有权限修改,请进行确认！');
         $input = $request->all();
         $res = NovelModel::del($input);
         if($res){

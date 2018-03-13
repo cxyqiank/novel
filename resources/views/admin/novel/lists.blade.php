@@ -38,9 +38,6 @@
                                 <div class="am-btn-group am-btn-group-xs">
                                     <button type="button" class="am-btn am-btn-default am-btn-success"><a href="/admin/novel/add/{{session('admin.id')}}" style="color: #fff"><span class="am-icon-plus"></span> 新增</a></button>
                                     <button type="button" onclick="$('#del').submit()" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                                    @if(session('msg'))
-                                        {{session('msg')}}
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -121,6 +118,9 @@
                 <div class="tpl-alert"></div>
             </div>
         </div>
+        @if(session('msg'))
+            <input type="hidden" id="del_error" value="{{session('msg')}}">
+        @endif
 @endsection
 @section('js')
     @parent
@@ -134,7 +134,12 @@
             }
         });
     </script>
-
+    @if(session('msg'))
+        <input type="hidden" id="del_error" value="{{session('msg')}}">
+        <script>
+            alert($('#del_error').val());
+        </script>
+    @endif
 @endsection
 
 
