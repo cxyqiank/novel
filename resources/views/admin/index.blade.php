@@ -56,12 +56,12 @@
                                 @if(isset($data['novels']))
                                 @foreach($data['novels'] as $novels)
                                 <tr>
-                                    <td>{{$novels->novel->name}}</td>
-                                    <td>{{$novels->novel->author}}</td>
-                                    <td>{{$novels->visitors}}</td>
-                                    <td>{{$novels->collectors}}</td>
-                                    <td>{{$novels->novel->sections}}</td>
-                                    <td>{{date('Y-m-d',strtotime($novels->novel->updated_at))}}</td>
+                                    <td>{{$novels['novel']['name']}}</td>
+                                    <td>{{$novels['novel']['author']}}</td>
+                                    <td>{{$novels['visitors']}}</td>
+                                    <td>{{$novels['collectors']}}</td>
+                                    <td>{{$novels['novel']['sections']}}</td>
+                                    <td>{{date('Y-m-d',strtotime($novels['novel']['updated_at']))}}</td>
                                 </tr>
                                 @endforeach
                                 @endif

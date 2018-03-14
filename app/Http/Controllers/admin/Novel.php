@@ -7,6 +7,7 @@ use App\Model\admin\Novel as NovelModel;
 use \App\Model\admin\Section as SectionModel;
 use Illuminate\Http\Request;
 use \App\Model\admin\Admin;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Session;
 
@@ -73,7 +74,14 @@ class Novel extends BaseController
             return redirect('admin/novel/lists')->with('msg', '资源不存在或你没有权限修改,请进行确认！');
         $input = $request->all();
         $res = NovelModel::del($input);
-        if($res){
+        $res2 = $res3 = true;
+        if(DB::select('SELECT * FROM novel_carts WHERE novel_id=' . request('id'))) {
+            $res2 = DB::delete('DELETE FROM novel_carts WHERE novel_id=' . request('id'));
+        }
+        if(DB::select('SELECT * FROM hots WHERE novel_id=' . request('id'))) {
+            $res3 = DB::delete('DELETE FROM hots WHERE novel_id=' . request('id'));
+        }
+        if($res&&$res2&&$res3){
             return Redirect('admin/novel/lists');
         }else{
             return back()->with('msg','删除失败');
