@@ -53,6 +53,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @if(isset($data['novels']))
                                 @foreach($data['novels'] as $novels)
                                 <tr>
                                     <td>{{$novels->novel->name}}</td>
@@ -63,6 +64,7 @@
                                     <td>{{date('Y-m-d',strtotime($novels->novel->updated_at))}}</td>
                                 </tr>
                                 @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -94,6 +96,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(isset($data['novels']))
                                 @foreach($data['authors'] as $author)
                                     <tr>
                                         <td>{{$author->author}}</td>
@@ -102,6 +105,7 @@
                                         <td class="font-green bold">{{$author->nums}}</td>
                                     </tr>
                                 @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
