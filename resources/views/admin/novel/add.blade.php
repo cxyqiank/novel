@@ -80,11 +80,14 @@
     <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
                                             <input id="doc-form-file" type="file" name="pic" multiple>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
+                                        @if (count($errors) > 0)
+                                            <span style="color: red; font-size: 14px">{{$errors->all()[0]}}</span>
+                                            <br>
+                                        @endif
                                         <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                     </div>
                                 </div>

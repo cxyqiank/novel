@@ -34,6 +34,24 @@ class Novel extends BaseController
         if($request->isMethod('post')){
             date_default_timezone_set('PRC');
             $input = $request->all();
+            $this->validate($request, [
+                'name' => 'bail|required|unique:novels|max:255',
+                'desc' => 'bail|required',
+                'author' => 'bail|required',
+                'card_id' => 'bail|required',
+                'pic' => 'bail|required',
+            ],[
+                'required' => ':attribute 为必填项',
+                'min' => ':attribute 长度不能小于2个字符',
+                'max' => ':attribute 长度不能大于20个字符',
+                'unique' => ':attribute 必须唯一',
+            ],[
+                'name' => '书名',
+                'desc' => '小说描述',
+                'author' => '作者',
+                'card_id' => '分类',
+                'pic' => '封面',
+            ]);
             $file = $request->file('pic');
             $res = (new NovelModel())->add($input,$file,$user);
             if($res){
