@@ -24,24 +24,25 @@ class UserAPI extends Controller
         if(is_null($input['name'])){
             return Response::json(['status'=>0]);
         }
-
-        if(User::where('name',$input['name'])->get().length>0) {
+        $name_res = User::where('name',$input['name'])->get()->toArray();
+        $phone_res = User::where('phone',$input['phone'])->get()->toArray();
+        if($name_res.length>0) {
             return Response::json(['status'=>3,'data'=>$input, 'msg'=>User::where('name',$input['name'])->get()]);
         }
-        if(User::where('phone',$input['phone'])->get().length>0) {
+        if($phone_res.length>0) {
             return Response::json(['status'=>2,'data'=>$input, 'msg'=>User::where('phone',$input['phone'])->get()]);
         }
         $input['password'] = bcrypt($input['password']);
         //将数据插入表
-        $res1 = User::create($input);
         $tcode = Phone_code::where('phone',$input['phone'])->first();
         $tcode = $tcode['code'];
         $res2 = $tcode==$input['code'];
+        if(!$res2) {
+            return Response::json(['status'=>4]);
+        }
+        $res1 = User::create($input);
         if($res1)
-        {$result['status1'] = 1;}
-        if($res2)
-        {$result['status2'] = 1;}
-        {$result['code'] = $tcode;}
+        {$result['status'] = 1;}
         return Response::json($result);
     }
     # 发送验证码
