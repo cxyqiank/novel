@@ -81,14 +81,19 @@ class UserAPI extends Controller
         $input = $request->all();
         //验证数据
         if(isset($input)&&$input!=[])
-        {
-
-            $builder = User::where('name',$input['name'])??User::where('phone',$input['name']);
-            $data = $builder->get(['password','name','id']);
-            if(!isset($data[0]['id'])){
+        {	
+	   $phone = User::where('phone', $input['name'])->get()->toArray();
+	   $name = User::where('name', $input['name'])->get()->toArray();
+	   $data = [];
+	   if($phone!=[]) {
+		$data = $phone;
+	   }else if($name!=[]) {
+		$data = $name;
+	   }
+            if(!isset($data)){
                 return Response::json(['status'=>0]);
             }
-            if($data[0]['pwd']== Hash::check($data[0]['password'],$input['password']))
+            if(Hash::check($input['password'], $data[0]['password']))
             {
                 $token = bcrypt(time().$input['name']);
                 User::where('id',$data[0]['id'])->update(['remember_token'=>$token]);
@@ -105,7 +110,7 @@ class UserAPI extends Controller
         }
         else
         {
-            $data = ['status'=>0];
+            $data = ['status'=>3];
             return Response::json($data);
         }
 
