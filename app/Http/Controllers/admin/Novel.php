@@ -38,7 +38,7 @@ class Novel extends BaseController
                 'name' => 'bail|required|unique:novels|max:255',
                 'desc' => 'bail|required',
                 'author' => 'bail|required',
-                'card_id' => 'bail|required',
+                'cart_id' => 'bail|required',
                 'pic' => 'bail|required',
             ],[
                 'required' => ':attribute 为必填项',
