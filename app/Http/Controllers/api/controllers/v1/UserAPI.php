@@ -25,10 +25,10 @@ class UserAPI extends Controller
             return Response::json(['status'=>0]);
         }
 
-        if(User::where('name',$input['name'])->get()) {
+        if(User::where('name',$input['name'])->get()!=[]) {
             return Response::json(['status'=>3,'data'=>$input, 'msg'=>User::where('name',$input['name'])->get()]);
         }
-        if(User::where('phone',$input['phone'])->get()) {
+        if(User::where('phone',$input['phone'])->get()!=[]) {
             return Response::json(['status'=>2,'data'=>$input, 'msg'=>User::where('phone',$input['phone'])->get()]);
         }
         $input['password'] = bcrypt($input['password']);
