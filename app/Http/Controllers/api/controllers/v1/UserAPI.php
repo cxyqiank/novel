@@ -90,7 +90,7 @@ class UserAPI extends Controller
 	   }else if($name!=[]) {
 		$data = $name;
 	   }
-            if(!isset($data)){
+            if($data==[]){
                 return Response::json(['status'=>0]);
             }
             if(Hash::check($input['password'], $data[0]['password']))
